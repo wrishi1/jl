@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JL Construction &amp; Developers | Luxury Residential, Interiors &amp; Petra Steel</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#0b0d10',
+                        brandCard: '#13171f',
+                        brandBorder: '#232a36',
+                        crimson: {
+                            800: '#7a0e1c',
+                            900: '#5a0712',
+                            DEFAULT: '#8b1524',
+                            light: '#b81d32'
+                        },
+                        gold: {
+                            DEFAULT: '#d4af37',
+                            light: '#f3e5ab',
+                            dark: '#aa8829'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #0b0d10;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .font-heading {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa8829 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .crimson-gradient-text {
+            background: linear-gradient(135deg, #f87171 0%, #b81d32 50%, #7a0e1c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(19, 23, 31, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(184, 29, 50, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(139, 21, 36, 0.3);
+        }
+
+        .logo-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 0 15px rgba(139, 21, 36, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover {
+            border-color: rgba(212, 175, 55, 0.8);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .logo-img {
+            object-fit: contain;
+            max-height: 100%;
+            width: auto;
+            border-radius: 4px;
+        }
+
+        .crimson-btn {
+            background: linear-gradient(135deg, #b81d32 0%, #8b1524 100%);
+            transition: all 0.3s ease;
+        }
+
+        .crimson-btn:hover {
+            background: linear-gradient(135deg, #d62839 0%, #a1182a 100%);
+            box-shadow: 0 0 20px rgba(184, 29, 50, 0.5);
+        }
+
+        /* Hero Image Slider */
+        .hero-image-slider {
+            isolation: isolate;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(1.025);
+            transition: opacity 0.35s ease, transform 1.2s ease;
+            will-change: opacity, transform;
+        }
+
+        .hero-slide img {
+            animation: heroKenBurns 3s ease-out forwards;
+        }
+
+        .hero-slide-active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 1;
+        }
+
+        .hero-progress-dot {
+            width: 26px;
+            height: 3px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.35);
+            transition: width .25s ease, background .25s ease;
+        }
+
+        .hero-progress-active {
+            width: 42px;
+            background: #d4af37;
+        }
+
+        @keyframes heroKenBurns {
+            from { transform: scale(1.02); }
+            to { transform: scale(1.06); }
+        }
+
+        .gold-divider {
+            width: 64px;
+            height: 2px;
+            margin: 14px auto 0;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+
+        /* View Switching Logic */
+        .page-view {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .page-view.active-view {
+            display: block;
+            opacity: 1;
+        }
+
+        .nav-link.active-nav {
+            color: #d4af37 !important;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0d10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #232a36;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-crimson selection:text-white flex flex-col min-h-screen">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-brandDark border-b border-brandBorder py-2 px-4 text-xs md:text-sm text-gray-400">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center space-x-6">
+                <a href="tel:+919108305313" class="hover:text-gold flex items-center transition">
+                    <i class="fa-solid fa-phone text-crimson-light mr-2"></i> +91 9108305313
+                </a>
+                <a href="mailto:Enquiry@jlcndevelopers.com" class="hover:text-gold flex items-center transition">
+                    <i class="fa-solid fa-envelope text-crimson-light mr-2"></i> Enquiry@jlcndevelopers.com
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-4 text-xs tracking-wider uppercase text-gold">
+                <span><i class="fa-solid fa-award mr-1"></i> Premium Residential</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-shield-halved mr-1"></i> Petra Steel Doors</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-couch mr-1"></i> Luxury Interiors</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-50 bg-brandDark/95 backdrop-blur-md border-b border-brandBorder/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <a href="#home" class="flex items-center space-x-3 group">
+                    <div class="logo-container h-12 w-12 p-1 rounded-lg flex items-center justify-center overflow-hidden">
+                        <!-- Robust Logo Loader with Fallback chain -->
+                        <img 
+                            src="./logo_2.jpeg" 
+                            alt="JL Construction Logo" 
+                            class="logo-img" 
+                            onerror="
+                                if (this.src.indexOf('logo_2.jpeg') !== -1) {
+                                    this.src = './logo.jpeg';
+                                } else {
+                                    this.onerror = null;
+                                    this.style.display = 'none';
+                                    document.getElementById('svg-logo-fallback').classList.remove('hidden');
+                                }
+                            "
+                        >
+                        <!-- Fallback SVG Badge -->
+                        <div id="svg-logo-fallback" class="hidden w-full h-full flex flex-col items-center justify-center bg-crimson rounded text-gold font-bold font-heading text-xl">
+                            JL
+                        </div>
+                    </div>
+                    <div>
+                        <span class="block font-heading text-lg md:text-2xl font-bold tracking-wider text-white group-hover:text-gold transition">
+                            JL CONSTRUCTION
+                        </span>
+                        <span class="block text-[10px] sm:text-xs uppercase tracking-widest text-gold font-semibold">
+                            &amp; DEVELOPERS
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Navigation Links -->
+                <nav class="hidden lg:flex items-center space-x-7 text-sm font-medium">
+                    <a href="#home" class="nav-link py-2 text-gray-200 hover:text-gold transition active-nav" data-view="home">Home</a>
+                    <a href="#about" class="nav-link py-2 text-gray-200 hover:text-gold transition" data-view="about">About Us</a>
+                    <a href="#services" class="nav-link py-2 text-gray-200 hover:text-gold transition" data-view="services">Our Expertise</a>
+                    <a href="#portfolio" class="nav-link py-2 text-gray-200 hover:text-gold transition" data-view="portfolio">Projects</a>
+                    <a href="#petra-steel" class="nav-link py-2 text-gray-200 hover:text-gold transition" data-view="petra-steel">Petra Steel Doors</a>
+                    <a href="#contact" class="nav-link py-2 text-gray-200 hover:text-gold transition" data-view="contact">Contact</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden sm:flex items-center space-x-4">
+                    <a href="#contact" onclick="navigateTo('contact')" class="crimson-btn px-5 py-2.5 rounded-full text-sm font-semibold text-white tracking-wide shadow-lg hover:scale-105 transition transform">
+                        Get Enquired
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex lg:hidden">
+                    <button id="mobile-menu-btn" type="button" class="text-gray-300 hover:text-white p-2 rounded-md focus:outline-none" aria-label="Toggle Navigation">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-brandCard border-b border-brandBorder px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-gold hover:bg-white/5" data-view="home">Home</a>
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-gold hover:bg-white/5" data-view="about">About Us</a>
+            <a href="#services" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-gold hover:bg-white/5" data-view="services">Our Expertise</a>
+            <a href="#portfolio" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-gold hover:bg-white/5" data-view="portfolio">Projects</a>
+            <a href="#petra-steel" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-gold hover:bg-white/5" data-view="petra-steel">Petra Steel Doors</a>
+            <a href="#contact" class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-gold hover:bg-white/5" data-view="contact">Contact</a>
+            <div class="pt-2 border-t border-gray-800">
+                <a href="#contact" onclick="navigateTo('contact')" class="crimson-btn block w-full text-center px-5 py-2.5 rounded-md text-sm font-semibold text-white">
+                    Get Enquired
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container (Dynamic Page Views) -->
+    <main class="flex-grow">
+
+        <!-- VIEW 1: HOME PAGE -->
+        <div id="view-home" class="page-view active-view">
+            <!-- Hero Section -->
+            <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-20">
+                <div class="absolute inset-0 z-0 hero-image-slider" aria-hidden="true">
+                    <div class="hero-slide hero-slide-active">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80" alt="Luxury Architecture" class="w-full h-full object-cover">
+                    </div>
+                    <div class="hero-slide">
+                        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=80" alt="Luxury Interior" class="w-full h-full object-cover">
+                    </div>
+                    <div class="hero-slide">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80" alt="Modern Exterior" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center space-x-3">
+                    <button class="hero-progress-dot hero-progress-active" aria-label="Slide 1"></button>
+                    <button class="hero-progress-dot" aria-label="Slide 2"></button>
+                    <button class="hero-progress-dot" aria-label="Slide 3"></button>
+                </div>
+
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+                    <div class="max-w-3xl">
+                        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full glass-card border border-gold/30 text-xs md:text-sm text-gold font-medium mb-6">
+                            <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+                            <span>Crafting Architectural Excellence</span>
+                        </div>
+                        <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-[1.1]">
+                            Transforming Visions Into <span class="gold-gradient-text">Masterpiece Realities</span>
+                        </h1>
+                        <p class="text-base sm:text-xl text-gray-300 font-light mb-8 leading-relaxed max-w-2xl">
+                            Specializing in high-end luxury residential construction, bespoke interior architecture, and state-of-the-art Petra Steel security door systems.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center gap-4">
+                            <button onclick="navigateTo('contact')" class="crimson-btn w-full sm:w-auto px-8 py-4 rounded-full text-base font-semibold text-white tracking-wide text-center shadow-xl hover:scale-105 transition transform">
+                                Start Your Project <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                            </button>
+                            <button onclick="navigateTo('portfolio')" class="w-full sm:w-auto px-8 py-4 rounded-full text-base font-semibold text-gray-200 glass-card hover:text-gold hover:border-gold/50 text-center transition">
+                                Explore Portfolio
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Highlights Overview Section -->
+            <section class="py-20 bg-brandDark/80 relative border-t border-brandBorder">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="glass-card p-8 rounded-2xl hover:-translate-y-2 transition duration-300">
+                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-xl mb-4">
+                                <i class="fa-solid fa-city"></i>
+                            </div>
+                            <h3 class="font-heading text-2xl font-bold text-white mb-2">Luxury Residential</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Complete turnkey construction of luxury villas, residences, and contemporary architectural estates built with uncompromised precision.
+                            </p>
+                            <button onclick="navigateTo('services')" class="text-xs uppercase font-bold text-gold hover:underline">Learn More &rarr;</button>
+                        </div>
+
+                        <div class="glass-card p-8 rounded-2xl hover:-translate-y-2 transition duration-300">
+                            <div class="w-12 h-12 rounded-xl bg-crimson/20 border border-crimson/30 flex items-center justify-center text-crimson-light text-xl mb-4">
+                                <i class="fa-solid fa-couch"></i>
+                            </div>
+                            <h3 class="font-heading text-2xl font-bold text-white mb-2">Bespoke Interiors</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                High-end interior design, layout engineering, custom woodwork, modular kitchens, and ambient spatial illumination.
+                            </p>
+                            <button onclick="navigateTo('services')" class="text-xs uppercase font-bold text-gold hover:underline">Learn More &rarr;</button>
+                        </div>
+
+                        <div class="glass-card p-8 rounded-2xl hover:-translate-y-2 transition duration-300">
+                            <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-xl mb-4">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h3 class="font-heading text-2xl font-bold text-white mb-2">Petra Steel Doors</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Authorized partner and distributor of engineered fire-rated steel doors with multi-point lock security for homes and commercial assets.
+                            </p>
+                            <button onclick="navigateTo('petra-steel')" class="text-xs uppercase font-bold text-gold hover:underline">View Catalog &rarr;</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW 2: ABOUT US PAGE -->
+        <div id="view-about" class="page-view">
+            <section class="py-20 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-gold">Our Legacy</span>
+                        <h2 class="font-heading text-3xl sm:text-5xl font-bold text-white mt-2">Crafting Built Environment Standards</h2>
+                        <div class="gold-divider"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                        <div>
+                            <h3 class="font-heading text-3xl font-bold text-white mb-4">Pioneering Excellence in Every Foundation</h3>
+                            <p class="text-gray-300 text-base leading-relaxed mb-6">
+                                JL Construction &amp; Developers is a premier construction, architectural design, and interior engineering firm committed to creating iconic living spaces. Driven by passion and guided by strict quality benchmarks, we fuse modern architectural elegance with durable, structural precision.
+                            </p>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                From concept design to the final handshake, our team works closely with clients, architects, and structural consultants to deliver turn-key projects on time and within budget parameters.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="glass-card p-4 rounded-xl">
+                                    <div class="font-heading text-3xl font-bold text-gold">10+ Years</div>
+                                    <div class="text-xs text-gray-400 uppercase mt-1">Industry Leadership</div>
+                                </div>
+                                <div class="glass-card p-4 rounded-xl">
+                                    <div class="font-heading text-3xl font-bold text-crimson-light">150+</div>
+                                    <div class="text-xs text-gray-400 uppercase mt-1">Completed Residential Projects</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <div class="glass-card p-4 rounded-2xl overflow-hidden border border-gold/30">
+                                <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1000&q=80" alt="JL Construction Site Engineering" class="rounded-xl w-full h-96 object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Core Values -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="glass-card p-6 rounded-xl text-center">
+                            <div class="w-12 h-12 rounded-full bg-gold/20 text-gold mx-auto flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-gem"></i>
+                            </div>
+                            <h4 class="font-heading text-xl font-bold text-white mb-2">Uncompromising Quality</h4>
+                            <p class="text-gray-400 text-xs leading-relaxed">We source certified structural steel, grade-A concrete, and premium interior elements to ensure lifelong stability.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl text-center">
+                            <div class="w-12 h-12 rounded-full bg-crimson/20 text-crimson-light mx-auto flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <h4 class="font-heading text-xl font-bold text-white mb-2">On-Time Execution</h4>
+                            <p class="text-gray-400 text-xs leading-relaxed">Systematic project scheduling and milestone tracking to guarantee completion within agreed schedules.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl text-center">
+                            <div class="w-12 h-12 rounded-full bg-gold/20 text-gold mx-auto flex items-center justify-center text-xl mb-4">
+                                <i class="fa-solid fa-handshake"></i>
+                            </div>
+                            <h4 class="font-heading text-xl font-bold text-white mb-2">Transparent Pricing</h4>
+                            <p class="text-gray-400 text-xs leading-relaxed">No hidden costs or scope drift. Detailed itemized estimates provided before project initiation.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW 3: OUR EXPERTISE / SERVICES PAGE -->
+        <div id="view-services" class="page-view">
+            <section class="py-20 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-gold">Full Spectrum Capabilities</span>
+                        <h2 class="font-heading text-3xl sm:text-5xl font-bold text-white mt-2">Engineering &amp; Design Solutions</h2>
+                        <div class="gold-divider"></div>
+                    </div>
+
+                    <div class="space-y-16">
+                        <!-- Service Detail 1 -->
+                        <div class="glass-card p-8 rounded-2xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <span class="text-xs font-semibold uppercase text-gold">Service 01</span>
+                                <h3 class="font-heading text-3xl font-bold text-white mt-1 mb-4">Residential Construction &amp; Development</h3>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                                    Our residential division plans, constructs, and manages luxury villas, apartments, and private compounds. From soil testing and foundation laying to RCC framing and final handover, our engineers adhere strictly to code regulations.
+                                </p>
+                                <ul class="space-y-2 text-sm text-gray-400 mb-6">
+                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2"></i> Custom Villa Design &amp; Architectural Planning</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2"></i> Seismic-Resistant Structural RCC Framework</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2"></i> Turnkey Project Execution &amp; Site Supervision</li>
+                                </ul>
+                                <button onclick="navigateTo('contact')" class="crimson-btn px-6 py-2.5 rounded-full text-xs font-semibold text-white">Consult Our Construction Team</button>
+                            </div>
+                            <div>
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Residential Construction" class="rounded-xl w-full h-72 object-cover">
+                            </div>
+                        </div>
+
+                        <!-- Service Detail 2 -->
+                        <div class="glass-card p-8 rounded-2xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                            <div class="order-2 lg:order-1">
+                                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="Luxury Interior" class="rounded-xl w-full h-72 object-cover">
+                            </div>
+                            <div class="order-1 lg:order-2">
+                                <span class="text-xs font-semibold uppercase text-gold">Service 02</span>
+                                <h3 class="font-heading text-3xl font-bold text-white mt-1 mb-4">Bespoke Interior Architecture</h3>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                                    Elevate your indoor spaces with bespoke interior craftsmanship. We design, fabricate, and install custom furniture, false ceilings, luxury lighting, flooring, and modular kitchen systems suited to modern preferences.
+                                </p>
+                                <ul class="space-y-2 text-sm text-gray-400 mb-6">
+                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2"></i> 3D Visualization &amp; Spatial Planning</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2"></i> Custom Furniture &amp; Italian Finish Millwork</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2"></i> Smart Lighting &amp; Acoustic Ceiling Installation</li>
+                                </ul>
+                                <button onclick="navigateTo('contact')" class="crimson-btn px-6 py-2.5 rounded-full text-xs font-semibold text-white">Book Interior Consultation</button>
+                            </div>
+                        </div>
+
+                        <!-- Service Detail 3 -->
+                        <div class="glass-card p-8 rounded-2xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                            <div>
+                                <span class="text-xs font-semibold uppercase text-gold">Service 03</span>
+                                <h3 class="font-heading text-3xl font-bold text-white mt-1 mb-4">Petra Steel Door Security Solutions</h3>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                                    Security meets architectural grandeur. As an official supplier of Petra Steel Doors, we offer certified fire-resistant, anti-burglary, and weather-proof steel doors designed to replace conventional wooden main doors without sacrificing elegance.
+                                </p>
+                                <ul class="space-y-2 text-sm text-gray-400 mb-6">
+                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2"></i> Multi-Point Lock Security Mechanism</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2"></i> High-Grade Galvanized Steel with Wood Grain Finishes</li>
+                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2"></i> Professional Precision Installation Service</li>
+                                </ul>
+                                <button onclick="navigateTo('petra-steel')" class="crimson-btn px-6 py-2.5 rounded-full text-xs font-semibold text-white">Explore Door Catalog</button>
+                            </div>
+                            <div>
+                                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Petra Steel Door" class="rounded-xl w-full h-72 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW 4: PROJECTS PORTFOLIO PAGE -->
+        <div id="view-portfolio" class="page-view">
+            <section class="py-20 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-12">
+                        <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-gold">Our Showcase</span>
+                        <h2 class="font-heading text-3xl sm:text-5xl font-bold text-white mt-2">Delivered Projects</h2>
+                        <div class="gold-divider"></div>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap justify-center gap-3 mb-12">
+                        <button onclick="filterProjects('all')" class="portfolio-filter active-filter px-5 py-2 rounded-full text-xs font-semibold bg-gold text-brandDark transition" data-filter="all">All Projects</button>
+                        <button onclick="filterProjects('residential')" class="portfolio-filter px-5 py-2 rounded-full text-xs font-semibold glass-card text-gray-300 hover:text-gold transition" data-filter="residential">Residential</button>
+                        <button onclick="filterProjects('interiors')" class="portfolio-filter px-5 py-2 rounded-full text-xs font-semibold glass-card text-gray-300 hover:text-gold transition" data-filter="interiors">Interiors</button>
+                        <button onclick="filterProjects('petra')" class="portfolio-filter px-5 py-2 rounded-full text-xs font-semibold glass-card text-gray-300 hover:text-gold transition" data-filter="petra">Petra Steel</button>
+                    </div>
+
+                    <!-- Portfolio Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Item 1 -->
+                        <div class="project-item residential glass-card rounded-2xl overflow-hidden group">
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Modern Villa" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-brandDark/75 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                                    <span class="text-gold text-xs font-semibold uppercase tracking-wider">Villa Architecture</span>
+                                    <h4 class="font-heading text-2xl font-bold text-white">The Royal Residency</h4>
+                                    <p class="text-gray-300 text-xs mt-1">Full construction &amp; structural engineering</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="project-item interiors glass-card rounded-2xl overflow-hidden group">
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=800&q=80" alt="Living Suite" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-brandDark/75 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                                    <span class="text-gold text-xs font-semibold uppercase tracking-wider">Interior Design</span>
+                                    <h4 class="font-heading text-2xl font-bold text-white">Minimalist Living Suite</h4>
+                                    <p class="text-gray-300 text-xs mt-1">Custom lighting &amp; modular wood millwork</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="project-item petra glass-card rounded-2xl overflow-hidden group">
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Steel Security Door" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-brandDark/75 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                                    <span class="text-gold text-xs font-semibold uppercase tracking-wider">Petra Steel Integration</span>
+                                    <h4 class="font-heading text-2xl font-bold text-white">Imperial Security Entrance</h4>
+                                    <p class="text-gray-300 text-xs mt-1">Fire-rated multi-point steel door setup</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="project-item residential glass-card rounded-2xl overflow-hidden group">
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80" alt="Modern Mansion" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-brandDark/75 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                                    <span class="text-gold text-xs font-semibold uppercase tracking-wider">Residential</span>
+                                    <h4 class="font-heading text-2xl font-bold text-white">Skyline Crest Villa</h4>
+                                    <p class="text-gray-300 text-xs mt-1">Triplex residence construction</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="project-item interiors glass-card rounded-2xl overflow-hidden group">
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80" alt="Kitchen Interior" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-brandDark/75 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                                    <span class="text-gold text-xs font-semibold uppercase tracking-wider">Interiors</span>
+                                    <h4 class="font-heading text-2xl font-bold text-white">Contemporary Kitchen Suite</h4>
+                                    <p class="text-gray-300 text-xs mt-1">Italian quartz &amp; customized island setup</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 6 -->
+                        <div class="project-item petra glass-card rounded-2xl overflow-hidden group">
+                            <div class="relative h-64 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?auto=format&fit=crop&w=800&q=80" alt="Steel Door" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-brandDark/75 opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                                    <span class="text-gold text-xs font-semibold uppercase tracking-wider">Petra Steel</span>
+                                    <h4 class="font-heading text-2xl font-bold text-white">Granite Teak Finish Steel Door</h4>
+                                    <p class="text-gray-300 text-xs mt-1">Custom wood-textured security entrance</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW 5: PETRA STEEL DOORS SHOWCASE PAGE -->
+        <div id="view-petra-steel" class="page-view">
+            <section class="py-20 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-gold">Security &amp; Elegance</span>
+                        <h2 class="font-heading text-3xl sm:text-5xl font-bold text-white mt-2">Petra Steel Doors Catalog</h2>
+                        <p class="text-gray-300 text-sm mt-3">High-grade security steel doors with authentic natural wood textures, multi-point lock systems, and fire resistance.</p>
+                        <div class="gold-divider"></div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                        <!-- Product 1 -->
+                        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+                            <div>
+                                <div class="h-64 rounded-xl overflow-hidden mb-6 relative">
+                                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Petra Steel Main Door" class="w-full h-full object-cover">
+                                    <span class="absolute top-3 right-3 bg-crimson text-white text-[10px] uppercase font-bold px-3 py-1 rounded-full">Top Seller</span>
+                                </div>
+                                <h3 class="font-heading text-2xl font-bold text-white mb-2">Petra Royal Teak Door</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                                    Heavy-gauge galvanized steel main door featuring high-definition natural teak grain finish and anti-tamper lock cylinders.
+                                </p>
+                                <ul class="text-xs text-gray-300 space-y-1 mb-6">
+                                    <li><strong class="text-gold">Lock Points:</strong> 11-point lock mechanism</li>
+                                    <li><strong class="text-gold">Thickness:</strong> 70mm reinforced core</li>
+                                    <li><strong class="text-gold">Fire Rating:</strong> 90 Minutes Fire Safe</li>
+                                </ul>
+                            </div>
+                            <button onclick="openProductModal('Petra Royal Teak Door')" class="crimson-btn w-full py-3 rounded-xl font-semibold text-xs text-white uppercase tracking-wider">Inquire Details</button>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+                            <div>
+                                <div class="h-64 rounded-xl overflow-hidden mb-6 relative">
+                                    <img src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?auto=format&fit=crop&w=800&q=80" alt="Petra Steel Double Door" class="w-full h-full object-cover">
+                                    <span class="absolute top-3 right-3 bg-gold text-brandDark text-[10px] uppercase font-bold px-3 py-1 rounded-full">Grand Entrance</span>
+                                </div>
+                                <h3 class="font-heading text-2xl font-bold text-white mb-2">Petra Monarch Double Door</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                                    Double-leaf steel entrance door designed for wide architectural openings, featuring soundproofing and weather stripping.
+                                </p>
+                                <ul class="text-xs text-gray-300 space-y-1 mb-6">
+                                    <li><strong class="text-gold">Lock Points:</strong> 15-point multi-deadbolt</li>
+                                    <li><strong class="text-gold">Thickness:</strong> 90mm insulated core</li>
+                                    <li><strong class="text-gold">Finish:</strong> Matte Rosewood / Dark Oak</li>
+                                </ul>
+                            </div>
+                            <button onclick="openProductModal('Petra Monarch Double Door')" class="crimson-btn w-full py-3 rounded-xl font-semibold text-xs text-white uppercase tracking-wider">Inquire Details</button>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+                            <div>
+                                <div class="h-64 rounded-xl overflow-hidden mb-6 relative">
+                                    <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=800&q=80" alt="Petra Steel Apartment Door" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="font-heading text-2xl font-bold text-white mb-2">Petra Urban Prime Door</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                                    Sleek contemporary steel door tailored for apartments, gated communities, and luxury office spaces.
+                                </p>
+                                <ul class="text-xs text-gray-300 space-y-1 mb-6">
+                                    <li><strong class="text-gold">Lock Points:</strong> 8-point smart keylock</li>
+                                    <li><strong class="text-gold">Thickness:</strong> 50mm heavy steel</li>
+                                    <li><strong class="text-gold">Feature:</strong> Corrosion resistant finish</li>
+                                </ul>
+                            </div>
+                            <button onclick="openProductModal('Petra Urban Prime Door')" class="crimson-btn w-full py-3 rounded-xl font-semibold text-xs text-white uppercase tracking-wider">Inquire Details</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW 6: CONTACT US PAGE -->
+        <div id="view-contact" class="page-view">
+            <section class="py-20 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span class="text-xs sm:text-sm font-semibold uppercase tracking-widest text-gold">Get In Touch</span>
+                        <h2 class="font-heading text-3xl sm:text-5xl font-bold text-white mt-2">Start Your Project Consultation</h2>
+                        <div class="gold-divider"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <!-- Contact Details -->
+                        <div class="space-y-6">
+                            <div class="glass-card p-6 rounded-xl flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-lg bg-crimson/20 border border-crimson/30 flex items-center justify-center text-crimson-light text-xl shrink-0">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-gray-400 uppercase tracking-wider">Direct Hotline</span>
+                                    <a href="tel:+919108305313" class="text-lg font-semibold text-white hover:text-gold transition">+91 9108305313</a>
+                                </div>
+                            </div>
+
+                            <div class="glass-card p-6 rounded-xl flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-lg bg-gold/20 border border-gold/30 flex items-center justify-center text-gold text-xl shrink-0">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-gray-400 uppercase tracking-wider">Official Email</span>
+                                    <a href="mailto:Enquiry@jlcndevelopers.com" class="text-lg font-semibold text-white hover:text-gold transition">Enquiry@jlcndevelopers.com</a>
+                                </div>
+                            </div>
+
+                            <div class="glass-card p-6 rounded-xl flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-lg bg-crimson/20 border border-crimson/30 flex items-center justify-center text-crimson-light text-xl shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <span class="block text-xs text-gray-400 uppercase tracking-wider">Corporate Headquarters</span>
+                                    <p class="text-sm font-semibold text-white">JL Construction &amp; Developers, Main Commercial Zone, India</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Inquiry Form -->
+                        <form id="contact-form" class="glass-card p-8 rounded-2xl space-y-6" onsubmit="handleFormSubmit(event)">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Full Name *</label>
+                                <input type="text" id="form-name" required class="w-full bg-brandDark/80 border border-brandBorder rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Phone / Email *</label>
+                                <input type="text" id="form-contact" required class="w-full bg-brandDark/80 border border-brandBorder rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition" placeholder="+91 9876543210 or email@domain.com">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Service Required</label>
+                                <select id="form-service" class="w-full bg-brandDark/80 border border-brandBorder rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition">
+                                    <option value="Residential Construction">Residential Construction</option>
+                                    <option value="Bespoke Interior Design">Bespoke Interior Design</option>
+                                    <option value="Petra Steel Door Inquiry">Petra Steel Door Inquiry</option>
+                                    <option value="General Project Consultation">General Project Consultation</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Message</label>
+                                <textarea id="form-message" rows="4" required class="w-full bg-brandDark/80 border border-brandBorder rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold transition" placeholder="Tell us about your project requirements..."></textarea>
+                            </div>
+                            <button type="submit" class="crimson-btn w-full py-4 rounded-lg font-semibold text-white tracking-wide shadow-lg">
+                                Send Inquiry
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Product Inquiry Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="glass-card max-w-lg w-full p-8 rounded-2xl relative border border-gold/30">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="text-xs font-semibold text-gold uppercase tracking-widest">Inquiry Request</span>
+            <h3 id="modal-product-title" class="font-heading text-2xl font-bold text-white mb-4">Petra Steel Door</h3>
+            <p class="text-xs text-gray-400 mb-6">Fill in your contact details below to request catalog specifications and pricing from our technical representative.</p>
+            
+            <form onsubmit="handleModalSubmit(event)" class="space-y-4">
+                <div>
+                    <input type="text" id="modal-name" required placeholder="Your Name" class="w-full bg-brandDark/90 border border-brandBorder rounded-lg px-4 py-3 text-sm text-white focus:border-gold focus:outline-none">
+                </div>
+                <div>
+                    <input type="tel" id="modal-phone" required placeholder="Phone Number" class="w-full bg-brandDark/90 border border-brandBorder rounded-lg px-4 py-3 text-sm text-white focus:border-gold focus:outline-none">
+                </div>
+                <button type="submit" class="crimson-btn w-full py-3 rounded-lg text-sm font-semibold text-white">
+                    Request Pricing &amp; Specs
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast Message -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-brandCard border border-gold/50 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center space-x-3">
+        <i class="fa-solid fa-circle-check text-gold text-xl"></i>
+        <span id="toast-text" class="text-sm font-medium">Inquiry sent successfully! Our team will contact you shortly.</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brandDark border-t border-brandBorder py-12 text-center text-xs text-gray-500 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <div class="flex justify-center space-x-6 text-sm">
+                <button onclick="navigateTo('home')" class="hover:text-gold">Home</button>
+                <button onclick="navigateTo('about')" class="hover:text-gold">About</button>
+                <button onclick="navigateTo('services')" class="hover:text-gold">Services</button>
+                <button onclick="navigateTo('portfolio')" class="hover:text-gold">Projects</button>
+                <button onclick="navigateTo('petra-steel')" class="hover:text-gold">Petra Steel</button>
+                <button onclick="navigateTo('contact')" class="hover:text-gold">Contact</button>
+            </div>
+            <p>&copy; 2026 JL Construction &amp; Developers. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // SPA Client-Side Routing Engine
+        const views = {
+            'home': document.getElementById('view-home'),
+            'about': document.getElementById('view-about'),
+            'services': document.getElementById('view-services'),
+            'portfolio': document.getElementById('view-portfolio'),
+            'petra-steel': document.getElementById('view-petra-steel'),
+            'contact': document.getElementById('view-contact')
+        };
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function navigateTo(viewKey) {
+            if (!views[viewKey]) viewKey = 'home';
+
+            // Hide all views
+            Object.keys(views).forEach(key => {
+                if (views[key]) views[key].classList.remove('active-view');
+            });
+
+            // Show selected view
+            views[viewKey].classList.add('active-view');
+
+            // Update Header Nav Links
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-view') === viewKey) {
+                    link.classList.add('active-nav');
+                } else {
+                    link.classList.remove('active-nav');
+                }
+            });
+
+            // Update Hash in URL
+            window.location.hash = viewKey;
+
+            // Scroll to Top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Handle Hash Changes
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) navigateTo(hash);
+        });
+
+        // Initialize view based on URL hash on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            navigateTo(hash || 'home');
+        });
+
+        // Attach Nav Click Event Listeners
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetView = link.getAttribute('data-view');
+                if (targetView) {
+                    e.preventDefault();
+                    navigateTo(targetView);
+                }
+            });
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetView = link.getAttribute('data-view');
+                if (targetView) {
+                    e.preventDefault();
+                    navigateTo(targetView);
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Filterable Gallery Logic
+        function filterProjects(category) {
+            const items = document.querySelectorAll('.project-item');
+            const buttons = document.querySelectorAll('.portfolio-filter');
+
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('bg-gold', 'text-brandDark');
+                    btn.classList.remove('glass-card', 'text-gray-300');
+                } else {
+                    btn.classList.remove('bg-gold', 'text-brandDark');
+                    btn.classList.add('glass-card', 'text-gray-300');
+                }
+            });
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Product Modal Logic
+        function openProductModal(productName) {
+            document.getElementById('modal-product-title').innerText = productName;
+            document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('product-modal').classList.add('flex');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.getElementById('product-modal').classList.remove('flex');
+        }
+
+        function handleModalSubmit(e) {
+            e.preventDefault();
+            closeProductModal();
+            showToast('Inquiry for ' + document.getElementById('modal-product-title').innerText + ' sent!');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            showToast('Your project inquiry has been submitted! Our engineers will call you back.');
+            document.getElementById('contact-form').reset();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+
+        // Hero Image Slider Script
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.hero-progress-dot');
+        let currentSlide = 0;
+        const slideInterval = 5000;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('hero-slide-active', i === index);
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('hero-progress-active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            if (slides.length > 0) {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+        }
+
+        if (slides.length > 0) {
+            setInterval(nextSlide, slideInterval);
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
